@@ -113,7 +113,7 @@ class XdpcHandler(movelladot_pc_sdk.XsDotCallback):
         """
         # Start a scan and wait until we have found one or more DOT Devices
         print("Scanning for devices...")
-        self.__manager.enableDeviceDetection()
+        self.__manager.enableDeviceDetection() # the operations are driven by manager
 
         # Setup the keyboard input listener
         listener = keyboard.Listener(on_press=on_press)
@@ -123,7 +123,7 @@ class XdpcHandler(movelladot_pc_sdk.XsDotCallback):
         connectedDOTCount = 0
         startTime = movelladot_pc_sdk.XsTimeStamp_nowMs()
         while waitForConnections and not self.errorReceived() and movelladot_pc_sdk.XsTimeStamp_nowMs() - startTime <= 20000:
-            time.sleep(0.1)
+            time.sleep(0.1) # no press, no receive error, no timer up
 
             nextCount = len(self.detectedDots())
             if nextCount != connectedDOTCount:
@@ -159,6 +159,12 @@ class XdpcHandler(movelladot_pc_sdk.XsDotCallback):
                 device = self.__manager.device(portInfo.deviceId())
                 if device is None:
                     continue
+
+                """
+                WL - The SDK searches its internal list of connected devices.
+                It finds the one whose ID matches portInfo.deviceId().
+                It returns an XsDotDevice Python object that represents the connected sensor.
+                """
 
                 self.__connectedDots.append(device)
                 print(f"Found a device with Tag: {device.deviceTagName()} @ address: {address}")
