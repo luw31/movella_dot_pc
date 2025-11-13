@@ -111,7 +111,7 @@ class XdpcHandler(movelladot_pc_sdk.XsDotCallback):
         Disables device detection when done
 
         """
-        # Start a scan and wait until we have found one or more DOT Devices
+
         print("Scanning for devices...")
         self.__manager.enableDeviceDetection() # the operations are driven by manager
 
