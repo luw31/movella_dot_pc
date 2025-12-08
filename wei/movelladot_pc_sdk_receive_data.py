@@ -67,15 +67,15 @@ if __name__ == "__main__":
             print("Setting filter profile failed!")
 
         print("Setting quaternion CSV output")
-        device.setLogOptions(movelladot_pc_sdk.XsLogOptions_RateQuantities)
+        device.setLogOptions(movelladot_pc_sdk.XsLogOptions_Euler)
 
-        logFileName = "logfile_CustomMode1_" + device.bluetoothAddress().replace(':', '-') + ".csv"
+        logFileName = "logfile_ExtendedQuaternion_" + device.bluetoothAddress().replace(':', '-') + ".csv"
         print(f"Enable logging to: {logFileName}")
         if not device.enableLogging(logFileName):
             print(f"Failed to enable logging. Reason: {device.lastResultText()}")
 
         print("Putting device into measurement mode.")
-        if not device.startMeasurement(movelladot_pc_sdk.XsPayloadMode_RateQuantities):
+        if not device.startMeasurement(movelladot_pc_sdk.XsPayloadMode_ExtendedQuaternion):
             print(f"Could not put device into measurement mode. Reason: {device.lastResultText()}")
             continue
 
